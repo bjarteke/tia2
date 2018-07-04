@@ -31,6 +31,32 @@
             {
               "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"CDVIonicKeyboard\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"GeofencePlugin\"><param name=\"ios-package\" value=\"HWPGeofencePlugin\" /></feature>",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "*-Info.plist": {
+        "parents": {
+          "NSLocationAlwaysUsageDescription": [
+            {
+              "xml": "<string>${EXECUTABLE_NAME} Would Like to Use Your Current Location Even In Background.</string>",
+              "count": 1
+            }
+          ],
+          "NSLocationWhenInUseUsageDescription": [
+            {
+              "xml": "<string>${EXECUTABLE_NAME} Would Like to Use Your Current Location When In Use.</string>",
+              "count": 1
+            }
+          ],
+          "UIBackgroundModes": [
+            {
+              "xml": "<array><string>remote-notification</string></array>",
+              "count": 1
             }
           ]
         }
@@ -51,6 +77,20 @@
       "PACKAGE_NAME": "io.ionic.starter"
     },
     "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-add-swift-support": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-compat": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-geofence": {
+      "GEOFENCE_ALWAYS_USAGE_DESCRIPTION": "${EXECUTABLE_NAME} Would Like to Use Your Current Location Even In Background.",
+      "GEOFENCE_IN_USE_USAGE_DESCRIPTION": "${EXECUTABLE_NAME} Would Like to Use Your Current Location When In Use.",
       "PACKAGE_NAME": "io.ionic.starter"
     }
   },
@@ -87,6 +127,28 @@
       "clobbers": [
         "window.Keyboard"
       ]
+    },
+    {
+      "id": "es6-promise-plugin.Promise",
+      "file": "plugins/es6-promise-plugin/www/promise.js",
+      "pluginId": "es6-promise-plugin",
+      "runs": true
+    },
+    {
+      "id": "cordova-plugin-geofence.TransitionType",
+      "file": "plugins/cordova-plugin-geofence/www/TransitionType.js",
+      "pluginId": "cordova-plugin-geofence",
+      "clobbers": [
+        "TransitionType"
+      ]
+    },
+    {
+      "id": "cordova-plugin-geofence.geofence",
+      "file": "plugins/cordova-plugin-geofence/www/geofence.js",
+      "pluginId": "cordova-plugin-geofence",
+      "clobbers": [
+        "geofence"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -94,6 +156,10 @@
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-ionic-webview": "1.1.19",
-    "cordova-plugin-ionic-keyboard": "2.0.5"
+    "cordova-plugin-ionic-keyboard": "2.0.5",
+    "cordova-plugin-add-swift-support": "1.6.0",
+    "cordova-plugin-compat": "1.2.0",
+    "es6-promise-plugin": "4.2.2",
+    "cordova-plugin-geofence": "0.7.0"
   }
 }
