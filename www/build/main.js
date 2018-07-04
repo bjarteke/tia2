@@ -63,7 +63,7 @@ var TabsPage = /** @class */ (function () {
         this.tab3Root = __WEBPACK_IMPORTED_MODULE_2__contact_contact__["a" /* ContactPage */];
     }
     TabsPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/bjarteespedokken/tia/src/pages/tabs/tabs.html"*/'<ion-tabs>\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"/Users/bjarteespedokken/tia/src/pages/tabs/tabs.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\bjarte.espedokken\tia2\src\pages\tabs\tabs.html"*/'<ion-tabs>\n\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n\n  <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>\n\n  <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>\n\n</ion-tabs>\n\n'/*ion-inline-end:"C:\Users\bjarte.espedokken\tia2\src\pages\tabs\tabs.html"*/
         }),
         __metadata("design:paramtypes", [])
     ], TabsPage);
@@ -98,7 +98,7 @@ var AboutPage = /** @class */ (function () {
     }
     AboutPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-about',template:/*ion-inline-start:"/Users/bjarteespedokken/tia/src/pages/about/about.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/Users/bjarteespedokken/tia/src/pages/about/about.html"*/
+            selector: 'page-about',template:/*ion-inline-start:"C:\Users\bjarte.espedokken\tia2\src\pages\about\about.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      About\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\bjarte.espedokken\tia2\src\pages\about\about.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
     ], AboutPage);
@@ -133,7 +133,7 @@ var ContactPage = /** @class */ (function () {
     }
     ContactPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-contact',template:/*ion-inline-start:"/Users/bjarteespedokken/tia/src/pages/contact/contact.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      Contact\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content>\n  <ion-list>\n    <ion-list-header>Follow us on Twitter</ion-list-header>\n    <ion-item>\n      <ion-icon name="ionic" item-start></ion-icon>\n      @ionicframework\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/bjarteespedokken/tia/src/pages/contact/contact.html"*/
+            selector: 'page-contact',template:/*ion-inline-start:"C:\Users\bjarte.espedokken\tia2\src\pages\contact\contact.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Contact\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-list>\n\n    <ion-list-header>Follow us on Twitter</ion-list-header>\n\n    <ion-item>\n\n      <ion-icon name="ionic" item-start></ion-icon>\n\n      @ionicframework\n\n    </ion-item>\n\n  </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\bjarte.espedokken\tia2\src\pages\contact\contact.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
     ], ContactPage);
@@ -165,10 +165,53 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var HomePage = /** @class */ (function () {
     function HomePage(navCtrl) {
         this.navCtrl = navCtrl;
+        //Variables used for testing 
+        this.addOrUpdate = false;
+        this.success = false;
+        this.checkInOutTimes = []; //The first value is always the initial checkInTime, and the last is the final checkOutTime.
+        this.checkedIn = true;
+        this.withinRange = false;
+        //Variables used to change the text and color of the "stemple inn"-button.
+        this.stempleButton = "Stemple inn";
+        this.checkInOutVar = "checkInOut";
     }
+    HomePage.prototype.checkInOut = function () {
+        this.checkInOutTimes.push(new Date());
+        if (this.checkInOutTimes.length > 5) {
+            this.calculateLengthOfAllIntervals();
+        }
+        if (this.stempleButton == "Stemple inn") {
+            this.stempleButton = "Stemple ut";
+            this.checkInOutVar = "checkInOut2";
+        }
+        else {
+            this.stempleButton = "Stemple inn";
+            this.checkInOutVar = "checkInOut";
+        }
+    };
+    //Calculate how many hours and minutes between two timestamps.
+    HomePage.prototype.calculateTimePeriod = function (time1, time2) {
+        if (this.checkInOutTimes.length > 1) {
+            var m = Math.abs((new Date(time2).getMinutes() - new Date(time1).getMinutes()));
+            var h = Math.abs((new Date(time2).getHours() - new Date(time1).getHours()));
+            var outH = "" + h;
+            var outM = "" + m;
+            outH = (h < 10) ? "0" + h : outH;
+            outM = (m < 10) ? "0" + m : outM;
+            return (outH + ":" + outM);
+        }
+    };
+    HomePage.prototype.calculateLengthOfAllIntervals = function () {
+        var intervalList = [];
+        console.log(this.checkInOutTimes);
+        for (var x = 0; x < this.checkInOutTimes.length - 1; x++) {
+            intervalList.push(this.calculateTimePeriod(this.checkInOutTimes[x], this.checkInOutTimes[x + 1]));
+        }
+        console.log(intervalList);
+    };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/bjarteespedokken/tia/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h2>Welcome to Ionic!</h2>\n  <p>\n    This starter project comes with simple tabs-based layout for apps\n    that are going to primarily use a Tabbed UI.\n  </p>\n  <p>\n    Take a look at the <code>src/pages/</code> directory to add or change tabs,\n    update any existing page or create new pages.\n  </p>\n</ion-content>\n'/*ion-inline-end:"/Users/bjarteespedokken/tia/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\bjarte.espedokken\tia2\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Home</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n   \n\n  <h3>Init {{init}}</h3>\n\n<h3>AddOrUpdate {{addOrUpdate | json }}</h3>\n\n<h1 ng-repeat="time in checkInOutTimes"></h1> \n\n\n\n<div class="info">\n\n  <div class="record">\n\n    <div class="header">\n\n      <ion-icon name="pin" class="pinIcon"></ion-icon>      \n\n      <h1>Mandag 16. juli: 08:00 - 16:00</h1>\n\n    </div>\n\n    <div class="infoField">\n\n    </div>\n\n    <button ion-button full primary class="{{checkInOutVar}} button button-md button-default button-default-md button-full button-full-md" (click)="checkInOut()">{{stempleButton}}</button>\n\n  </div>\n\n\n\n  <div class="futureRecords">\n\n    <h5>Dine vakter:</h5>\n\n    <div class="rec">\n\n      <div class="futureDate">\n\n        <span style="font-size: 25px; font-weight: 900">16</span><br>\n\n        <span style="font-size: 15px; font-weight: 100">juli</span> \n\n      </div>\n\n      <div class="futureInfo">\n\n        <h3>08:00 - 16:00</h3>\n\n      </div> \n\n    </div>\n\n    <div class="rec">\n\n      <div class="futureDate">\n\n        <span style="font-size: 25px; font-weight: 900">18</span><br>\n\n        <span style="font-size: 15px; font-weight: 100">juli</span> \n\n      </div>\n\n      <div class="futureInfo">\n\n        <h3>08:00 - 16:00</h3>\n\n      </div> \n\n    </div>\n\n    <div class="rec">\n\n        <div class="ribbon"><span>Popular</span></div>\n\n      <div class="futureDate">\n\n        <span style="font-size: 25px; font-weight: 900">21</span><br>\n\n        <span style="font-size: 15px; font-weight: 100">juli</span> \n\n      </div>\n\n      <div class="futureInfo">\n\n        <h3>08:00 - 16:00</h3>\n\n      </div> \n\n    </div>\n\n  </div>\n\n</div>\n\n'/*ion-inline-end:"C:\Users\bjarte.espedokken\tia2\src\pages\home\home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* NavController */]])
     ], HomePage);
@@ -299,7 +342,7 @@ var MyApp = /** @class */ (function () {
         });
     }
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/bjarteespedokken/tia/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/Users/bjarteespedokken/tia/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\bjarte.espedokken\tia2\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\bjarte.espedokken\tia2\src\app\app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
